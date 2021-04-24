@@ -12,7 +12,7 @@ jobs:
                     npm run lint
     docker-build:
         docker:
-            - image: aws/aws-cli
+            - image: amazon/aws-cli
         steps:
             - checkout
             - run:
