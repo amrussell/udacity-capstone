@@ -10,6 +10,7 @@ jobs:
                 command: |
                     npm install
                     npm run lint
+
     docker-build:
         docker:
             - image: amazon/aws-cli
