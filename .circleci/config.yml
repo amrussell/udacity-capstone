@@ -12,12 +12,14 @@ jobs:
                     npm run lint 
     ecr-publish:
         docker:
-            - image: jansauer/dockercli-plus-awscli
+            - image: docker
         steps:
             - checkout
             - run:
                 name: Build and push Docker image
                 command: |
+                    apt-get update || apk update
+                    apt-get install awscli || apk get awscli
                     DOCKERPATH=amrussell/udacity-capstone:latest
                     docker build -f Dockerfile -t $DOCKERPATH . -q
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
