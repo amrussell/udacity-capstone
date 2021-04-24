@@ -1,6 +1,15 @@
 version: 2.1
 jobs:
-
+   build:
+        docker:
+            - image: node:lts-alpine3.13
+        steps:
+            - checkout
+            - run:
+                name: Build Node app
+                command: |
+                    npm install
+                    npm run lint 
     ecr-publish:
         docker:
             - image: amazon/aws-cli
@@ -15,3 +24,9 @@ jobs:
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
                     echo "Pushing image to $DOCKERPATH"
                     docker push $DOCKERPATH
+
+workflows:
+	default:
+		jobs:
+			- build
+			- ecr-publish
