@@ -12,7 +12,7 @@ jobs:
                     npm run lint 
     ecr-publish:
         docker:
-            - image: alpine:latest
+            - image: node:lts-alpine3.13
         steps:
             - checkout
             - run:
@@ -20,6 +20,8 @@ jobs:
                 command: |
                     apk update
                     apk add docker
+                    service docker start
+                    service docker status
                     apk add --no-cache python3 py3-pip \
                     && pip3 install --upgrade pip \
                     && pip3 install \
