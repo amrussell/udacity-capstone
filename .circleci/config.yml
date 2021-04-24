@@ -5,11 +5,16 @@ jobs:
             - image: node:lts-alpine3.13
         steps:
             - checkout
+            - restore_cache:
+                keys: [build]
             - run:
                 name: Build Node app
                 command: |
                     npm install
                     npm run lint
+            - save_cache:
+                paths: [node_modules]
+                key: build
 
     ecr-publish:
         docker:
