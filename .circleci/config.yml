@@ -12,12 +12,14 @@ jobs:
                     npm run lint 
     ecr-publish:
         docker:
-            - image: amazon/aws-cli
+            - image: ubuntu:20.04
         steps:
             - checkout
             - run:
                 name: Build and push Docker image
                 command: |
+                    sudo apt-get install awscli -y
+                    sudo apt-get install docker -y
                     DOCKERPATH=amrussell/udacity-capstone:latest
                     docker build -f Dockerfile -t $DOCKERPATH . -q
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
