@@ -18,6 +18,7 @@ jobs:
             - run:
                 name: Build and push Docker image
                 command: |
+                    apt-get update
                     apt-get install awscli -y
                     apt-get install docker -y
                     DOCKERPATH=amrussell/udacity-capstone:latest
