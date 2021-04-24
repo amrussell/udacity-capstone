@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+    aws-ecr: circleci/aws-ecr@7.0.0
+
 jobs:
     build:
         docker:
@@ -10,26 +14,12 @@ jobs:
                 command: |
                     npm install
                     npm run lint 
-    ecr-publish:
-        docker:
-            - image: alpinelinux/docker-cli
-        steps:
-            - checkout
-            - run:
-                name: Build and push Docker image
-                command: |
-                    apk update
-                    apk add --no-cache python3 py3-pip
-                    pip3 install --upgrade pip
-                    pip3 install awscli
-                    docker build -f Dockerfile -t amrussell/udacity-capstone:latest .
-                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
-                    echo "Pushing image to amrussell/udacity-capstone:latest"
-                    docker push amrussell/udacity-capstone:latest
 
 workflows:
     default:
         jobs:
             - build
-            - ecr-publish:
-                requires: [build]
+            - aws-ecr/build-and-push-image:
+                repo: "amrussell/udacity-capstone"
+                tag: "${CIRCLE_SHA1}"
+
