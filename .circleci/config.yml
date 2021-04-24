@@ -12,16 +12,20 @@ jobs:
                     npm run lint 
     ecr-publish:
         docker:
-            - image: ubuntu:20.04
+            - image: alpine:latest
         steps:
             - checkout
             - run:
                 name: Build and push Docker image
                 command: |
-                    apt-get update
-                    apt-get install awscli -y
-                    apt-get install docker -y
-                    DOCKERPATH=amrussell/udacity-capstone:latest
+                    apk update
+                    apk add docker -y
+                    apk add --no-cache python3 py3-pip \
+                    && pip3 install --upgrade pip \
+                    && pip3 install \
+                    awscli \
+                    && rm -rf /var/cache/apk/*
+					DOCKERPATH=amrussell/udacity-capstone:latest
                     docker build -f Dockerfile -t $DOCKERPATH . -q
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
                     echo "Pushing image to $DOCKERPATH"
