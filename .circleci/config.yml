@@ -26,7 +26,7 @@ jobs:
                     docker push $DOCKERPATH
 
 workflows:
-	default:
-		jobs:
-			- build
-			- ecr-publish
+    default:
+        jobs:
+            - build
+            - ecr-publish
