@@ -19,9 +19,7 @@ jobs:
                 name: Build and push Docker image
                 command: |
                     apk update
-                    apk add docker
-                    service docker start
-                    service docker status
+                    apk add --no-cache docker-cli
                     apk add --no-cache python3 py3-pip \
                     && pip3 install --upgrade pip \
                     && pip3 install \
