@@ -1,5 +1,12 @@
 {
     "name": "amrussell-udacity-capstone",
     "version": "0.0.1",
-    "description": "Alex Russell's Udacity Capstone"
+    "description": "Alex Russell's Udacity Capstone",
+    "dependencies": {},
+    "devDependencies": {
+        "eslint": "^7.25.0"
+    },
+    "scripts": {
+        "lint": "./node_modules/.bin/eslint app.js"
+    }
 }

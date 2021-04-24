@@ -9,4 +9,5 @@ jobs:
                 name: Install npm dependencies
                 command: |
                     npm install
+                    npm run lint
 
