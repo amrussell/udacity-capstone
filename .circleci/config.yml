@@ -32,7 +32,7 @@ jobs:
             - kubernetes/create-or-update-resource:
                 get-rollout-status: true
                 resource-file-path: k8s/deploy.yaml
-                resource-name: capstone
+                resource-name: alex-udacity-capstone
 
 
 workflows:
