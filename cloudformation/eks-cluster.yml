@@ -1,0 +1,33 @@
+Description: >
+    EKS Cluster for Alex Russell's Udacity capstone
+
+Parameters:
+    ClusterRoleArn:
+        Description: ARN of cluster role
+        Type: String
+
+Resources:
+    Cluster:
+        Type: AWS::EKS::Cluster
+        Properties:
+            Name: UdacityCapstoneCluster
+            RoleArn: !Sub ${ClusterRoleArn}
+            ResourcesVpcConfig:
+                SecurityGroupIds:
+                    - sg-0fa7c53ed5f027410
+                    - sg-2d76dc20
+                SubnetIds:
+                    - subnet-0054794d
+                    - subnet-1afb6545
+
+    LoadBalancer:
+        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+        Properties:
+            Name: EksLoadBalancer
+            SecurityGroups:
+                - sg-0fa7c53ed5f027410
+                - sg-2d76dc20
+            Subnets:
+                - subnet-0054794d
+                - subnet-1afb6545
+
