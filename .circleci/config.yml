@@ -53,6 +53,6 @@ workflows:
                 requires: [aws-ecr/build-and-push-image]
             - aws-eks/update-container-image:
                 cluster-name: UdacityCapstoneCluster
-                container-image-updates: capstone=amrussell/udacity-capstone:${CIRCLE_SHA1}
+                container-image-updates: alex-udacity-capstone=amrussell/udacity-capstone:${CIRCLE_SHA1}
                 requires: [create-deployment]
 
