@@ -5,6 +5,9 @@ Parameters:
     ClusterRoleArn:
         Description: ARN of cluster role
         Type: String
+    FargateRoleArn:
+        Description: ARN of Fargate exec role
+        Type: String
 
 Resources:
     Cluster:
@@ -20,14 +23,11 @@ Resources:
                     - subnet-0054794d
                     - subnet-1afb6545
 
-    LoadBalancer:
-        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    FargateProfile:
+        Type: AWS::EKS::FargateProfile
         Properties:
-            Name: EksLoadBalancer
-            SecurityGroups:
-                - sg-0fa7c53ed5f027410
-                - sg-2d76dc20
-            Subnets:
-                - subnet-0054794d
-                - subnet-1afb6545
-
+            ClusterName: UdacityCapstoneCluster
+            FargateProfileName: capstone-fargate
+            PodexecutionRoleArn: !Sub ${FargateRoleArn}
+            Selectors:
+            - Namespace: default
