@@ -15,7 +15,7 @@ spec:
                 app: capstone
         spec:
             containers:
-            - name: capstone
+            - name: alex-udacity-capstone
               image: amrussell/udacity-capstone
               ports:
               - containerPort: 3000
