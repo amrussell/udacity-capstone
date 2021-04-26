@@ -32,7 +32,7 @@ workflows:
                 region: AWS_REGION
             - aws-eks/update-container-image:
                 cluster-name: UdacityCapstoneCluster
-                container-image-updates: alex-udacity-capstone=amrussell/udacity-capstone:${CIRCLE_SHA1}
+                container-image-updates: alex-udacity-capstone=${ACCOUNT_URL}/amrussell/udacity-capstone:${CIRCLE_SHA1}
                 aws-region: ${AWS_REGION}
                 resource-name: deployment.apps/alex-udacity-capstone
                 get-rollout-status: true
