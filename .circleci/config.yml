@@ -55,5 +55,5 @@ workflows:
                 container-image-updates: alex-udacity-capstone=amrussell/udacity-capstone:${CIRCLE_SHA1}
                 requires: [create-deployment]
                 aws-region: ${AWS_REGION}
-                resource-file-path: k8s/deploy.yaml
+                resource-name: deployment.apps/alex-udacity-capstone
 
