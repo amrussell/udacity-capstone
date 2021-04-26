@@ -36,4 +36,5 @@ workflows:
                 aws-region: ${AWS_REGION}
                 resource-name: deployment.apps/alex-udacity-capstone
                 get-rollout-status: true
+                requires: [aws-ecr/build-and-push-image]
 
