@@ -30,6 +30,7 @@ jobs:
                 install-kubectl: true
                 aws-region: ${AWS_REGION}
             - kubernetes/create-or-update-resource:
+                get-rollout-status: true
                 resource-file-path: k8s/deploy.yaml
                 resource-name: alex-udacity-capstone
 
@@ -56,4 +57,5 @@ workflows:
                 requires: [create-deployment]
                 aws-region: ${AWS_REGION}
                 resource-name: deployment.apps/alex-udacity-capstone
+                get-rollout-status: true
 
