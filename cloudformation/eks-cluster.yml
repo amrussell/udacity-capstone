@@ -5,10 +5,9 @@ Parameters:
     ClusterRoleArn:
         Description: ARN of cluster role
         Type: String
-    FargateRoleArn:
-        Description: ARN of Fargate exec role
+    NodegroupRoleArn:
+        Description: ARN of nodegroup role
         Type: String
-
 Resources:
     Cluster:
         Type: AWS::EKS::Cluster
@@ -17,17 +16,20 @@ Resources:
             RoleArn: !Sub ${ClusterRoleArn}
             ResourcesVpcConfig:
                 SecurityGroupIds:
-                    - sg-0fa7c53ed5f027410
                     - sg-2d76dc20
                 SubnetIds:
                     - subnet-0054794d
                     - subnet-1afb6545
 
-    FargateProfile:
-        Type: AWS::EKS::FargateProfile
+    NodeGroup:
+        Type: AWS::EKS::Nodegroup
         Properties:
             ClusterName: UdacityCapstoneCluster
-            FargateProfileName: capstone-fargate
-            PodexecutionRoleArn: !Sub ${FargateRoleArn}
-            Selectors:
-            - Namespace: default
+            NodegroupName: CapstoneNodegroup
+            NodeRole: !Sub ${NodegroupRoleArn}
+            Subnets:
+                - subnet-0054794d
+                - subnet-1afb6545
+        DependsOn: [Cluster]
+
+
