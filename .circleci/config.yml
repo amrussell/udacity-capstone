@@ -16,24 +16,6 @@ jobs:
                 command: |
                     npm install
                     npm run lint 
-    create-deployment:
-        executor: aws-eks/python3
-        parameters:
-            cluster-name:
-                description: |
-                    Cluster name
-                type: string
-        steps:
-            - checkout
-            - aws-eks/update-kubeconfig-with-authenticator:
-                cluster-name: << parameters.cluster-name >>
-                install-kubectl: true
-                aws-region: ${AWS_REGION}
-            - kubernetes/create-or-update-resource:
-                get-rollout-status: true
-                resource-file-path: k8s/deploy.yaml
-                resource-name: deployment.apps/alex-udacity-capstone
-
 
 workflows:
     default:
